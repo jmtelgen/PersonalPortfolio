@@ -1,69 +1,150 @@
-# React + TypeScript + Vite
+# Jacob Telgenhoff - Personal Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive personal portfolio website showcasing my skills, projects, and professional experience as a full-stack software developer.
 
-Currently, two official plugins are available:
+## 🌟 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Modern Design**: Clean, professional interface with dark/light theme support
+- **Responsive Layout**: Optimized for desktop, tablet, and mobile devices
+- **Interactive Components**: Animated sections with smooth scrolling navigation
+- **Project Showcase**: Detailed project cards with expandable information
+- **Technical Skills**: Visual representation of programming languages and technologies
+- **Contact Form**: Functional contact form for professional inquiries
+- **Performance Optimized**: Fast loading with modern build tools
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Frontend
+- **React 19** - Modern React with latest features
+- **TypeScript** - Type-safe development
+- **Vite** - Fast build tool and development server
+- **Tailwind CSS** - Utility-first CSS framework
+- **Framer Motion** - Smooth animations and transitions
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### UI Components
+- **shadcn/ui** - High-quality, accessible component library
+- **Lucide React** - Beautiful, customizable icons
+- **Radix UI** - Unstyled, accessible UI primitives
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+### Development Tools
+- **ESLint** - Code linting and quality assurance
+- **TypeScript** - Static type checking
+- **Path Aliases** - Clean import paths with `@/` prefix
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 📁 Project Structure
+
+```
+src/
+├── components/          # React components
+│   ├── ui/             # Reusable UI components
+│   ├── navbar.tsx      # Navigation component
+│   ├── hero.tsx        # Hero section
+│   ├── about.tsx       # About section
+│   ├── tech-stack.tsx  # Skills showcase
+│   ├── projects.tsx    # Project portfolio
+│   ├── contact.tsx     # Contact form
+│   └── footer.tsx      # Footer component
+├── assets/             # Static assets
+├── lib/                # Utility functions
+└── index.css           # Global styles and Tailwind imports
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🚀 Getting Started
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Prerequisites
+- Node.js (v18 or higher)
+- npm or yarn
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd PersonalPortfolio
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Start development server**
+   ```bash
+   npm run dev
+   ```
+
+4. **Open your browser**
+   Navigate to `http://localhost:5173`
+
+### Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
+
+## 🚀 Deployment
+
+### AWS Deployment
+
+The project includes an automated deployment script for AWS:
+
+```bash
+./deploy.sh
 ```
+
+This script will:
+1. Build the production version
+2. Deploy to S3 bucket (`portfolioassetdistributionbucket`)
+3. Invalidate CloudFront cache for immediate updates
+
+### Manual Deployment
+
+1. **Build the project**
+   ```bash
+   npm run build
+   ```
+
+2. **Deploy to your preferred hosting service**
+   - Upload the `dist/` folder contents
+   - Configure your domain and SSL
+
+## 🎨 Customization
+
+### Colors and Theming
+- Edit `src/index.css` for color scheme changes
+- Modify CSS custom properties for theme customization
+- Update Tailwind config for additional design tokens
+
+### Content Updates
+- **Projects**: Edit `src/components/projects.tsx`
+- **Skills**: Modify `src/components/tech-stack.tsx`
+- **About**: Update `src/components/about.tsx`
+- **Contact**: Edit contact information in `src/components/contact.tsx`
+
+### Styling
+- Use Tailwind CSS classes for styling
+- Add custom CSS in `src/index.css`
+- Modify component-specific styles in individual files
+
+## 📱 Responsive Design
+
+The portfolio is fully responsive with breakpoints for:
+- **Mobile**: 320px - 768px
+- **Tablet**: 768px - 1024px
+- **Desktop**: 1024px+
+
+## 🔧 Configuration
+
+### Path Aliases
+Configured in `tsconfig.app.json` and `vite.config.ts`:
+- `@/` points to `src/`
+- `@/components/` for component imports
+- `@/lib/` for utility functions
+
+### Environment Variables
+Create a `.env` file for any environment-specific configurations.
+
+---
+
+**Built by Jacob Telgenhoff**

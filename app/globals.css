@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Updated CSS custom property names to match Tailwind config expectations */
+  --background: 0 0% 100%;
+  --foreground: 258.34 5.5% 9%;
+  --card: 0 0% 100%;
+  --card-foreground: 258.34 5.5% 9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 258.34 5.5% 9%;
+  --primary: 258.34 4.2% 15%;
+  --primary-foreground: 285.82 1.3% 98%;
+  --secondary: 285.82 0.6% 96%;
+  --secondary-foreground: 258.34 5.5% 9%;
+  --muted: 285.82 0.6% 96%;
+  --muted-foreground: 258.34 2.1% 52.1%;
+  --accent: 285.82 0.6% 96%;
+  --accent-foreground: 258.34 5.5% 9%;
+  --destructive: 29.23 15% 65.6%;
+  --destructive-foreground: 285.82 1.3% 98%;
+  --border: 285.82 0.5% 89.8%;
+  --input: 285.82 0.5% 89.8%;
+  --ring: 258.34 5.5% 9%;
+  --radius: 0.5rem;
+  --chart-1: 35.96 14% 70%;
+  --chart-2: 164.25 13.1% 72%;
+  --chart-3: 255.75 14.7% 50%;
+  --chart-4: 109.72 12.4% 80%;
+  --chart-5: 22.18 15.5% 75%;
+}
+
+.dark {
+  /* Much darker theme with proper HSL values for better contrast */
+  --background: 258.34 8% 3%;
+  --foreground: 285.82 2% 95%;
+  --card: 258.34 10% 5%;
+  --card-foreground: 285.82 2% 95%;
+  --popover: 258.34 9% 4%;
+  --popover-foreground: 285.82 2% 95%;
+  --primary: 275.75 20% 80%;
+  --primary-foreground: 258.34 8% 8%;
+  --secondary: 258.34 8% 10%;
+  --secondary-foreground: 285.82 2% 90%;
+  --muted: 258.34 10% 8%;
+  --muted-foreground: 258.34 4% 60%;
+  --accent: 258.34 12% 12%;
+  --accent-foreground: 285.82 2% 90%;
+  --destructive: 29.23 25% 55%;
+  --destructive-foreground: 285.82 2% 95%;
+  --border: 258.34 10% 12%;
+  --input: 258.34 8% 10%;
+  --ring: 275.75 15% 75%;
+  --chart-1: 275.75 20% 60%;
+  --chart-2: 164.25 18% 65%;
+  --chart-3: 35.96 15% 70%;
+  --chart-4: 292.18 18% 63%;
+  --chart-5: 22.18 16% 67%;
+}
+
+@layer base {
+  * {
+    /* Updated to use correct CSS custom property names */
+    border-color: hsl(var(--border));
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    scroll-margin-top: 0.5rem;
+  }
+
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  from,
+  to {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}

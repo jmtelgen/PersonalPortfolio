@@ -194,20 +194,6 @@ export default function TechStack() {
             </motion.div>
           ))}
         </div>
-
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          variants={fadeIn}
-          className="mt-12 text-center text-muted-foreground"
-        >
-          <p className="max-w-2xl mx-auto">
-            With extensive experience in both low-level systems programming and modern web development, I bring a
-            comprehensive understanding of software engineering principles to every project.
-          </p>
-        </motion.div>
       </div>
     </section>
   )

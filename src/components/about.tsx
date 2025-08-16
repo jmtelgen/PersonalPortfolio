@@ -137,13 +137,12 @@ export default function About() {
           transition={{ duration: 0.5 }}
           className="flex justify-center"
         >
-          <div className="relative aspect-square w-64">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/5 rounded-full"></div>
-            <div className="absolute inset-4 bg-muted rounded-full overflow-hidden">
+          <div className="w-64 h-64 relative">
+            <div className="w-full h-full bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg shadow-lg">
               <img
                 src="/images/JacobPicture.jpeg"
                 alt="Jacob Telgenhoff"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover rounded-lg"
               />
             </div>
           </div>

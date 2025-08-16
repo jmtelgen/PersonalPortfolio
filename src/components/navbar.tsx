@@ -53,7 +53,7 @@ export default function Navbar() {
             onClick={() => scrollToSection("home")}
             className="text-2xl font-bold text-primary hover:text-primary/80 transition-all duration-200 hover:scale-105 cursor-pointer"
           >
-            Jacob <span className="text-destructive hover:text-destructive/80">Telgenhoff</span>
+            Jake <span className="text-destructive hover:text-destructive/80">Telgenhoff</span>
           </button>
 
           {/* Desktop Navigation */}

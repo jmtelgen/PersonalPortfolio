@@ -38,7 +38,7 @@ export default function Hero() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
             <h1 className="text-4xl md:text-6xl font-bold mb-4">
-              Hi, I'm <span className="text-primary whitespace-nowrap">Jacob Telgenhoff</span>
+              Hi, I'm <span className="text-primary whitespace-nowrap">Jake</span>
             </h1>
             <h2 className="text-2xl md:text-3xl font-medium text-muted-foreground mb-6">
               <span className="text-foreground">{text}</span>
@@ -87,15 +87,26 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="relative aspect-square max-w-md mx-auto hidden md:block"
+            className="hidden md:block mt-8"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/5 rounded-full"></div>
-            <div className="absolute inset-4 bg-muted rounded-full overflow-hidden">
-              <img
-                src="/images/JacobPicture.jpeg"
-                alt="Jacob Telgenhoff"
-                className="w-full h-full object-cover"
-              />
+            <div className="w-56 h-56 mx-auto relative">
+              {/* First image (background) */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg shadow-lg z-20">
+                <img
+                  src="/images/JakePic2.jpeg"
+                  alt="Jacob Telgenhoff"
+                  className="w-full h-full object-cover rounded-lg"
+                />
+              </div>
+              
+              {/* Second image (slight overlap) */}
+              <div className="absolute -top-40 -left-40 w-56 h-56 bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg shadow-lg z-10">
+                <img
+                  src="/images/JacobPicture.jpeg"
+                  alt="Jacob Telgenhoff"
+                  className="w-full h-full object-cover rounded-lg"
+                />
+              </div>
             </div>
           </motion.div>
         </div>

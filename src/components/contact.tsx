@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import React, { useState } from "react"
 import { motion } from "framer-motion"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -8,7 +8,8 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { Mail, MapPin, Phone, Github, Linkedin, Twitter } from "lucide-react"
+import { Mail, MapPin, Phone, Github, Linkedin } from "lucide-react"
+import emailjs from '@emailjs/browser'
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -19,10 +20,42 @@ export default function Contact() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [submissionCount, setSubmissionCount] = useState(0)
+  const [isLimitReached, setIsLimitReached] = useState(false)
+  const [showLimitWarning, setShowLimitWarning] = useState(false)
 
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
+  }
+
+  // Check submission count on component mount
+  React.useEffect(() => {
+    const storedCount = localStorage.getItem('portfolio_submission_count')
+    const storedDate = localStorage.getItem('portfolio_submission_date')
+    const today = new Date().toDateString()
+    
+    if (storedDate === today && storedCount) {
+      const count = parseInt(storedCount)
+      setSubmissionCount(count)
+      if (count >= 5) {
+        setIsLimitReached(true)
+      }
+    } else {
+      // Reset count for new day
+      localStorage.setItem('portfolio_submission_date', today)
+      localStorage.setItem('portfolio_submission_count', '0')
+    }
+  }, [])
+
+  const incrementSubmissionCount = () => {
+    const newCount = submissionCount + 1
+    setSubmissionCount(newCount)
+    localStorage.setItem('portfolio_submission_count', newCount.toString())
+    
+    if (newCount >= 5) {
+      setIsLimitReached(true)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -32,22 +65,51 @@ export default function Contact() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    
+    // Check if submission limit is reached
+    if (isLimitReached) {
+      setShowLimitWarning(true)
+      setTimeout(() => setShowLimitWarning(false), 5000)
+      return
+    }
+    
     setIsSubmitting(true)
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500))
+    try {
+      // EmailJS configuration
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+        to_email: 'jake.telgenhoff@gmail.com',
+      }
 
-    setIsSubmitted(true)
+      // Send email using EmailJS
+      await emailjs.send(
+        'service_cs1rwzs',
+        'template_j6d047a',
+        templateParams,
+        'QAakhTVuP8dzU434N'
+      )
 
-    setFormData({
-      name: "",
-      email: "",
-      subject: "",
-      message: "",
-    })
-    setIsSubmitting(false)
-
-    setTimeout(() => setIsSubmitted(false), 3000)
+      // Increment submission count after successful send
+      incrementSubmissionCount()
+      
+      setIsSubmitted(true)
+      
+      // Reset form
+      setFormData({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+      })
+    } catch (error) {
+      console.error('Email sending failed:', error)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const contactInfo = [
@@ -107,6 +169,14 @@ export default function Contact() {
                     </p>
                   </div>
                 )}
+                
+                {showLimitWarning && (
+                  <div className="mb-6 p-4 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-md animate-in slide-in-from-top-2 duration-300">
+                    <p className="text-orange-800 dark:text-orange-200 font-medium">
+                      Daily limit reached! You can send 5 messages per day. Please try again tomorrow.
+                    </p>
+                  </div>
+                )}
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
@@ -158,7 +228,7 @@ export default function Contact() {
                   </div>
                   <Button
                     type="submit"
-                    className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white border-0"
+                    className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white border-0 cursor-pointer"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? "Sending..." : "Send Message"}
@@ -207,11 +277,6 @@ export default function Contact() {
                         rel="noopener noreferrer"
                       >
                         <Linkedin className="h-5 w-5" />
-                      </a>
-                    </Button>
-                    <Button variant="outline" size="icon" className="rounded-full bg-transparent" asChild>
-                      <a href="https://twitter.com/jacobtelgenhoff" target="_blank" rel="noopener noreferrer">
-                        <Twitter className="h-5 w-5" />
                       </a>
                     </Button>
                     <Button variant="outline" size="icon" className="rounded-full bg-transparent" asChild>

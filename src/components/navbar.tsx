@@ -3,11 +3,13 @@
 import { useState, useEffect } from "react"
 import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { cn } from "@/lib/utils"
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [showResume, setShowResume] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -49,7 +51,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between">
           <button
             onClick={() => scrollToSection("home")}
-            className="text-2xl font-bold text-primary hover:text-primary/80 transition-all duration-200 hover:scale-105"
+            className="text-2xl font-bold text-primary hover:text-primary/80 transition-all duration-200 hover:scale-105 cursor-pointer"
           >
             Jacob <span className="text-destructive hover:text-destructive/80">Telgenhoff</span>
           </button>
@@ -60,12 +62,15 @@ export default function Navbar() {
               <button
                 key={link.name}
                 onClick={() => scrollToSection(link.href)}
-                className="text-muted-foreground hover:text-foreground hover:bg-accent/50 px-3 py-2 rounded-md transition-all duration-200 hover:scale-105"
+                className="text-muted-foreground hover:text-foreground hover:bg-accent/50 px-3 py-2 rounded-md transition-all duration-200 hover:scale-105 cursor-pointer"
               >
                 {link.name}
               </button>
             ))}
-            <Button className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white border-0 hover:scale-105 transition-transform duration-200">
+            <Button 
+              onClick={() => setShowResume(true)}
+              className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white border-0 hover:scale-105 transition-transform duration-200 cursor-pointer"
+            >
               Resume
             </Button>
           </nav>
@@ -86,18 +91,37 @@ export default function Navbar() {
                 <button
                   key={link.name}
                   onClick={() => scrollToSection(link.href)}
-                  className="text-muted-foreground hover:text-foreground hover:bg-accent/50 px-3 py-2 rounded-md transition-all duration-200 text-left"
+                  className="text-muted-foreground hover:text-foreground hover:bg-accent/50 px-3 py-2 rounded-md transition-all duration-200 text-left cursor-pointer"
                 >
                   {link.name}
                 </button>
               ))}
-              <Button className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white border-0 hover:scale-105 transition-transform duration-200">
+              <Button 
+                onClick={() => setShowResume(true)}
+                className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white border-0 hover:scale-105 transition-transform duration-200 cursor-pointer"
+              >
                 Resume
               </Button>
             </nav>
           </div>
         </div>
       )}
+
+      {/* Resume Popup */}
+      <Dialog open={showResume} onOpenChange={setShowResume}>
+        <DialogContent className="max-w-6xl max-h-[95vh] overflow-hidden">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold text-center">Jacob Telgenhoff - Resume</DialogTitle>
+          </DialogHeader>
+          <div className="flex justify-center">
+            <iframe
+              src="/files/resume.pdf"
+              className="w-full h-[80vh] border-0 rounded-lg"
+              title="Jacob Telgenhoff Resume"
+            />
+          </div>
+        </DialogContent>
+      </Dialog>
     </header>
   )
 }

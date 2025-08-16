@@ -5,24 +5,21 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { ExternalLink, Github, ChevronDown } from "lucide-react"
 
 interface Project {
   id: number
   title: string
-  shortDescription: string
   description: string
   image: string
   tags: string[]
   features: string[]
-  demoLink: string
-  githubLink: string
-  fullDescription: string
+  demoLink?: string
+  githubLink?: string
+  fullDescription?: string
 }
 
 export default function Projects() {
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const [expandedProject, setExpandedProject] = useState<number | null>(null)
 
   const fadeIn = {
@@ -30,15 +27,14 @@ export default function Projects() {
     visible: { opacity: 1, y: 0 },
   }
 
-  const projects = [
+  const projects: Project[] = [
     {
       id: 1,
       title: "Bridge Card Game Platform",
-      shortDescription: "A comprehensive online bridge card game platform with multiplayer support, and real-time gameplay features.",
       description:
         "A card game platform built on AWS with a React frontend and a python lambda backend. The platform uses websockets to communicate between the frontend and backend, and uses AWS DynamoDB to store game state.",
-      image: "/placeholder.svg?height=400&width=600",
-      tags: ["C++", "Qt", "SQLite", "CMake"],
+      image: "/images/BridgeImage.png",
+      tags: ["Python", "React", "AWS", "Websockets", "DynamoDB", "Lambda", "API Gateway"],
       features: [
         "Real-time gameplay",
         "Game state management",
@@ -48,93 +44,49 @@ export default function Projects() {
         "AI bidding and play",
         "Bidding suggestions generated from knowledge base"
       ],
-      demoLink: "#",
-      githubLink: "#",
-      fullDescription:
-        "This e-commerce platform provides businesses with a complete solution for selling products online. Built with C++ and Qt for high performance and cross-platform compatibility. Features include a responsive design, product catalog with filtering and search capabilities, shopping cart functionality, secure checkout integration, user authentication, and an admin dashboard for managing products, orders, and customers.",
+      demoLink: "https://www.next-level-bridge.com/",
+      githubLink: "https://github.com/jmtelgen/BridgeApp",
     },
     {
       id: 2,
-      title: "Task Management System",
-      shortDescription: "A collaborative task management application with real-time updates.",
-      description: "A collaborative task management application with real-time updates and team workspaces.",
-      image: "/placeholder.svg?height=400&width=600",
-      tags: ["Java", "Spring Boot", "React", "PostgreSQL"],
+      title: "Personal Portfolio",
+      description: "A personal portfolio website built with React and Tailwind CSS and hosted on Cloudfront.",
+      image: "/images/Website.png",
+      tags: ["React", "Tailwind CSS", "Cloudfront", "Vercel"],
       features: [
-        "Real-time collaboration",
-        "Task dependencies",
-        "Resource allocation",
-        "Progress tracking",
-        "Team management",
+        "Hosted on AWS Cloudfront",
+        "Responsive design",
       ],
-      demoLink: "#",
-      githubLink: "#",
-      fullDescription:
-        "This task management system helps teams organize and track their work efficiently. Built with Java Spring Boot for the backend and React for the frontend, it provides robust task management capabilities. Features include task creation and assignment, due dates and reminders, progress tracking, file attachments, comments and discussions, team workspaces, and real-time updates.",
+      demoLink: "https://jaketelgenhoff.com/",
+      githubLink: "https://github.com/jmtelgen/PersonalPortfolio",
     },
     {
       id: 3,
-      title: "System Resource Monitor",
-      shortDescription: "A comprehensive system monitoring tool with real-time analytics.",
-      description: "A comprehensive system monitoring tool with real-time analytics and performance tracking.",
-      image: "/placeholder.svg?height=400&width=600",
+      title: "Double Dummy Bridge Solver Wrapper",
+      description: "A wrapper for the Double Dummy Bridge Solver C++ library that allows for wasm compilation for integration into a web application.",
+      image: "/images/DDBLibraryImage.png",
       tags: ["C++", "Python", "Qt", "Linux"],
       features: [
-        "CPU/Memory monitoring",
-        "Process management",
-        "Network analytics",
-        "Disk usage tracking",
-        "Performance alerts",
+        "WebAssembly compilation",
+        "Wraps DDB functions to export",
+        "Usage instructions"
       ],
-      demoLink: "#",
-      githubLink: "#",
-      fullDescription:
-        "This system resource monitor provides real-time insights into system performance. Built primarily in C++ with Python for data analysis, it offers comprehensive monitoring capabilities. The application tracks CPU usage, memory consumption, network traffic, and disk operations, providing detailed analytics and alerts for system administrators.",
+      githubLink: "https://github.com/jmtelgen/ddsWrapper",
     },
     {
       id: 4,
-      title: "Compiler Design Project",
-      shortDescription: "A custom programming language compiler with optimization features.",
-      description: "A custom programming language compiler with advanced optimization features.",
-      image: "/placeholder.svg?height=400&width=600",
-      tags: ["C", "LLVM", "Assembly", "Python"],
-      features: ["Lexical analysis", "Syntax parsing", "Code optimization", "Error handling", "Assembly generation"],
-      demoLink: "#",
-      githubLink: "#",
-      fullDescription:
-        "This compiler project implements a custom programming language with modern features and optimizations. Built using C and LLVM, it includes comprehensive error handling and code optimization capabilities. The compiler performs lexical analysis, syntax parsing, semantic analysis, and generates optimized assembly code.",
-    },
-    {
-      id: 5,
-      title: "Distributed Database System",
-      shortDescription: "A distributed database system with high availability.",
-      description: "A distributed database system with high availability and fault tolerance.",
-      image: "/placeholder.svg?height=400&width=600",
-      tags: ["C++", "Rust", "gRPC", "Redis"],
-      features: ["Data replication", "Sharding", "Fault tolerance", "Load balancing", "Transaction management"],
-      demoLink: "#",
-      githubLink: "#",
-      fullDescription:
-        "This distributed database system provides high availability and fault tolerance for large-scale applications. Built with C++ and Rust for performance, it implements advanced features such as data replication, sharding, and automatic failover. The system includes comprehensive monitoring and management tools.",
-    },
-    {
-      id: 6,
-      title: "Neural Network Framework",
-      shortDescription: "A deep learning framework optimized for performance.",
-      description: "A deep learning framework with CUDA acceleration and optimization features.",
-      image: "/placeholder.svg?height=400&width=600",
-      tags: ["C++", "CUDA", "Python", "CMake"],
+      title: "Amazon Internal RAG Knowledge Base and MCP",
+      description: "An internal knowledge base for Amazon employees to use to answer questions about my team's products. Built with AWS Step functions for knowledge ingestion and AWS Bedrock for LLM inference. Hooked up to an MCP to allow for agentic workflows.",
+      image: "/images/RAGImage.png",
+      tags: ["Java", "Python", "AWS", "Step Functions", "Bedrock", "MCP", "Lambda", "Langchain"],
       features: [
-        "CUDA acceleration",
-        "Automatic differentiation",
-        "Model optimization",
-        "Training pipelines",
-        "Performance profiling",
+        "AWS Step functions for knowledge ingestion",
+        "AWS Bedrock for LLM inference",
+        "MCP to allow for agentic workflows",
+        "Langchain for code and text chunking",
+        "API Gateway for Bedrock integration in MCP",
+        "DynamoDB for data source metadata storage",
       ],
-      demoLink: "#",
-      githubLink: "#",
-      fullDescription:
-        "This neural network framework provides high-performance deep learning capabilities. Built primarily in C++ with CUDA acceleration, it offers comprehensive tools for building and training neural networks. Features include automatic differentiation, model optimization, and detailed performance profiling.",
     },
   ]
 
@@ -172,17 +124,17 @@ export default function Projects() {
                 }`}
                 onClick={() => setExpandedProject(expandedProject === project.id ? null : project.id)}
               >
-                <CardContent className="p-0">
-                  <div className="relative overflow-hidden">
+                <CardContent className="p-6">
+                  <div className="text-center mb-4">
                     <img
-                      src={project.image || "/placeholder.svg"}
+                      src={project.image}
                       alt={project.title}
-                      className="w-full aspect-video object-cover transition-transform duration-300 group-hover:scale-105"
+                      className="w-32 h-32 mx-auto object-cover rounded-lg shadow-md transition-transform duration-300 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-background/20 p-6 flex flex-col justify-end">
-                      <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                      <p className="text-muted-foreground text-sm">{project.shortDescription}</p>
-                    </div>
+                  </div>
+                  <div className="text-center">
+                    <h3 className="text-xl font-bold mb-2">{project.title}</h3>
+                    <p className="text-muted-foreground text-sm mb-4">{project.description}</p>
                   </div>
 
                   <AnimatePresence>
@@ -213,37 +165,30 @@ export default function Projects() {
                           </div>
 
                           <div className="flex gap-4 pt-2">
-                            <Button
-                              size="sm"
-                              className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white border-0"
-                              onClick={(e) => {
-                                e.stopPropagation()
-                                window.open(project.githubLink, "_blank")
-                              }}
-                            >
-                              <Github className="h-4 w-4 mr-2" />
-                              Code
-                            </Button>
-                            <Button
-                              size="sm"
-                              onClick={(e) => {
-                                e.stopPropagation()
-                                window.open(project.demoLink, "_blank")
-                              }}
-                            >
-                              <ExternalLink className="h-4 w-4 mr-2" />
-                              Demo
-                            </Button>
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              onClick={(e) => {
-                                e.stopPropagation()
-                                setSelectedProject(project)
-                              }}
-                            >
-                              Learn More
-                            </Button>
+                            {project.githubLink && <Button
+                                size="sm"
+                                className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white border-0 cursor-pointer"
+                                onClick={(e) => {
+                                  e.stopPropagation()
+                                  window.open(project.githubLink, "_blank")
+                                }}
+                              >
+                                <Github className="h-4 w-4 mr-2" />
+                                Code
+                              </Button>
+                            }
+                            {project.demoLink && <Button
+                                size="sm"
+                                className="cursor-pointer"
+                                onClick={(e) => {
+                                  e.stopPropagation()
+                                  window.open(project.demoLink, "_blank")
+                                }}
+                              >
+                                <ExternalLink className="h-4 w-4 mr-2" />
+                                Demo
+                              </Button>
+                            }
                           </div>
                         </div>
                       </motion.div>
@@ -263,55 +208,6 @@ export default function Projects() {
           ))}
         </div>
       </div>
-
-      {selectedProject && (
-        <Dialog open={!!selectedProject} onOpenChange={() => setSelectedProject(null)}>
-          <DialogContent className="max-w-3xl">
-            <DialogHeader>
-              <DialogTitle>{selectedProject.title}</DialogTitle>
-              <DialogDescription>
-                <div className="flex flex-wrap gap-2 mt-2 mb-4">
-                  {selectedProject.tags.map((tag: string, i: number) => (
-                    <Badge key={i} variant="secondary">
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-              </DialogDescription>
-            </DialogHeader>
-            <div className="space-y-4">
-              <img
-                src={selectedProject.image || "/placeholder.svg"}
-                alt={selectedProject.title}
-                className="w-full rounded-md object-cover aspect-video"
-              />
-              <p className="text-muted-foreground">{selectedProject.fullDescription}</p>
-              <div className="space-y-4">
-                <h4 className="font-semibold">Key Features:</h4>
-                <ul className="list-disc list-inside text-muted-foreground space-y-2">
-                  {selectedProject.features.map((feature: string, i: number) => (
-                    <li key={i}>{feature}</li>
-                  ))}
-                </ul>
-              </div>
-              <div className="flex justify-end gap-4 mt-4">
-                <Button variant="outline" asChild>
-                  <a href={selectedProject.githubLink} target="_blank" rel="noopener noreferrer">
-                    <Github className="h-4 w-4 mr-2" />
-                    View Code
-                  </a>
-                </Button>
-                <Button asChild>
-                  <a href={selectedProject.demoLink} target="_blank" rel="noopener noreferrer">
-                    <ExternalLink className="h-4 w-4 mr-2" />
-                    Live Demo
-                  </a>
-                </Button>
-              </div>
-            </div>
-          </DialogContent>
-        </Dialog>
-      )}
     </section>
   )
 }

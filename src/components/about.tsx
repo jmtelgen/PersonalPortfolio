@@ -37,18 +37,18 @@ export default function About() {
           >
             <h3 className="text-2xl font-bold mb-4">A Passionate Developer</h3>
             <p className="text-muted-foreground mb-6">
-              I'm a full-stack developer with 3 years of professional experience building robust, scalable applications.
-              My expertise spans both frontend and backend development, allowing me to create comprehensive solutions
-              that deliver exceptional user experiences.
+              I’m a full-stack software developer at Amazon with a strong interest in creating innovative, end-to-end solutions. 
+              My work spans both frontend and backend systems, giving me the tools to deliver seamless and scalable applications.
             </p>
             <p className="text-muted-foreground mb-6">
-              Throughout my career, I've worked on diverse projects ranging from enterprise web applications to
-              innovative AI-powered solutions. I thrive in collaborative environments where I can leverage my technical
-              skills to solve real-world business challenges.
+              Beyond coding, I find inspiration in the outdoors, often exploring parks like Yosemite, Channel Islands, and 
+              Zion. This sense of exploration carries into my professional life, where I’m fascinated by how AI can reshape 
+              the way we build software and enhance the tools available to developers.
             </p>
             <p className="text-muted-foreground">
-              I'm passionate about staying current with emerging technologies, particularly in the AI space, and
-              continuously expanding my technical expertise to deliver cutting-edge solutions.
+              I’m equally excited about new innovations in the tech space and thrive on staying at the forefront of 
+              emerging technologies, always looking for opportunities to grow, learn, and contribute to meaningful 
+              advancements.
             </p>
           </motion.div>
 
@@ -69,8 +69,7 @@ export default function About() {
                     <div>
                       <h4 className="text-xl font-semibold mb-2">Clean Code</h4>
                       <p className="text-muted-foreground">
-                        I write maintainable, scalable, and efficient code following best practices and industry
-                        standards.
+                        I develop clean, scalable, and reliable software that balances technical excellence with real-world usability.
                       </p>
                     </div>
                   </div>
@@ -94,7 +93,7 @@ export default function About() {
                     <div>
                       <h4 className="text-xl font-semibold mb-2">Problem Solver</h4>
                       <p className="text-muted-foreground">
-                        I enjoy tackling complex challenges and finding elegant solutions through creative thinking.
+                        I take on complex challenges with curiosity and persistence, uncovering solutions that are both practical and innovative.
                       </p>
                     </div>
                   </div>
@@ -118,7 +117,7 @@ export default function About() {
                     <div>
                       <h4 className="text-xl font-semibold mb-2">Fast Learner</h4>
                       <p className="text-muted-foreground">
-                        I quickly adapt to new technologies and environments, constantly expanding my skill set.
+                      I quickly pick up new technologies and frameworks, continuously expanding my toolkit to stay ahead in a fast-moving industry.
                       </p>
                     </div>
                   </div>
@@ -127,6 +126,28 @@ export default function About() {
             </motion.div>
           </div>
         </div>
+      </div>
+      
+      {/* Mobile Profile Image */}
+      <div className="mt-16 md:hidden">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="flex justify-center"
+        >
+          <div className="relative aspect-square w-64">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/5 rounded-full"></div>
+            <div className="absolute inset-4 bg-muted rounded-full overflow-hidden">
+              <img
+                src="/images/JacobPicture.jpeg"
+                alt="Jacob Telgenhoff"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+        </motion.div>
       </div>
       
       {/* Divider */}

@@ -4,7 +4,6 @@ import About from '@/components/about'
 import TechStack from '@/components/tech-stack'
 import Projects from '@/components/projects'
 import Contact from '@/components/contact'
-import Footer from '@/components/footer'
 import { ThemeProvider } from '@/components/theme-provider'
 
 function App() {
@@ -19,7 +18,6 @@ function App() {
           <Projects />
           <Contact />
         </main>
-        <Footer />
       </div>
     </ThemeProvider>
   )
